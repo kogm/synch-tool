@@ -1,37 +1,28 @@
 # synch-tool
 
-#### 介绍
-git 同步工具
+shell版简易同步下载工具 ，用于同步git项目,方便学习源码
 
-#### 软件架构
-软件架构说明
+# 使用
+```
+// synch-tool
+lib
++ resource
++ + opensource(任意命名)
+- - - abc(任意命名，并添加加git地址换行表示多个项目如下)
 
+// abc中添加地址
+https://github.com/lodash/lodash.git
+https://github.com/storybookjs/storybook.git
 
-#### 安装教程
+// 执行
+// 两种方式 手动指定目录
+// 方式一 ./lib/synch.sh ~/Document/temp
+// 方式二 使用默认的start.sh 会在Document中创建
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+// 结果
+目标目录/opensource(上述说的任意命名的文件夹)/@web/xxx项目
+```
 
-#### 使用说明
-
-1.  xxxx
-2.  xxxx
-3.  xxxx
-
-#### 参与贡献
-
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
-
-
-#### 码云特技
-
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  码云官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解码云上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是码云最有价值开源项目，是码云综合评定出的优秀开源项目
-5.  码云官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  码云封面人物是一档用来展示码云会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+# TODO
+- [ ] 全局命令
+- [ ] 支持任意目录下创建待同步资源文件夹
