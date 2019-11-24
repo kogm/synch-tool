@@ -22,7 +22,7 @@ https://github.com/storybookjs/storybook.git
 // 方式一 ./lib/synch.sh ~/Document/temp 会在该目下创建项目并同步
 // 方式二 使用默认的start.sh 会在Document中创建
 ```
-## 不同某个项目
+## 不同步某个项目
 ```
 // @web
 https://github.com/lodash/lodash.git
