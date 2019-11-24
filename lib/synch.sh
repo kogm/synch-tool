@@ -1,7 +1,6 @@
 #!/bin/bash
 
 # 读取内容
-
 # 判断是否存在 否则创建文件夹
 function isExsitDir(){
   if [ ! -d $1 ]; 
@@ -34,33 +33,47 @@ function readsrcmkdirs() {
       mkdir -p $dpath
       # 拉取项目
       # 读取源目录下文件资源
+      IFS_old=$IFS      # 记录老的分隔符
+      IFS=$'\n'              # 以换行符作为分隔符
       for line in `cat $rfile`
       do
-        # 截取项目名
-        projname=${line##*/}
-        projname=${projname%%.*}
-
-        # 进入目标目录 
-        cd $dpath;
-        if [ -d $projname ];
+        IFS=$IFS_old;
+        # # 截取项目名
+        # 先按空格分隔 默认是同步项目
+        arr=($line)  
+        extname=${arr[0]##*/}
+        projname=${extname%%.*}
+        
+        # 取数组的第一部分
+        if [ "${arr[1]}" != "false" ];
         then
-          echo "更新项目： $dpath/$projname"
-          ## 如果存在该项目 则git merge
-          cd $projname;
-          git fetch -p && git merge;
-          cd $homepath;
-          echo -e "更新完成！！！\n"
-        else
-          # echo "拉取项目: $line --depth=1"
-          echo "拉取项目: $line"
-          ## 否则 git clone
-          # git clone $line --depth=1;
-          git clone $line;
-          cd -;
-          echo "拉取$projname项目完成！！！"
-          echo -e "\n"
-        fi
+          # 开始同步
+          # 进入目标目录 
+          cd $dpath;
+          if [ -d $projname ];
+          then
+            echo "更新项目： $dpath/$projname"
+            ## 如果存在该项目 则git merge
+            cd $projname;
+            git fetch -p && git merge;
+            cd $homepath;
+            echo -e "更新完成！！！\n"
+          else
+            # echo "拉取项目: ${arr[0]} --depth=1"
+            echo "拉取项目: ${arr[0]}"
+            ## 否则 git clone
+            # git clone ${arr[0]} --depth=1;
+            git clone ${arr[0]};
+            cd -;
+            echo "$projname: 拉取项目完成！！！"
+            echo -e "\n"
+          fi
+        else 
+          # 不做任何处理
+          echo "$projname 已暂停同步";
+        fi  
       done
+      IFS_old=$IFS
     fi
   }&
   done
